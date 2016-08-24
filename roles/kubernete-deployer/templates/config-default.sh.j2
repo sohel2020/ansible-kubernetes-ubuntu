@@ -1,0 +1,73 @@
+#!/bin/bash
+
+export nodes=${nodes:-"{% for host in groups['kubernete-minions'] %}root@{{ hostvars[host].ansible_eth0["ipv4"]["address"] }} {% endfor %}"}
+
+roles=${roles:-"ai"}
+
+export roles_array=($roles)
+
+
+export NUM_NODES=${NUM_NODES:-1}
+
+export SERVICE_CLUSTER_IP_RANGE=${SERVICE_CLUSTER_IP_RANGE:-192.168.3.0/24}  
+
+export CNI_PLUGIN_CONF CNI_PLUGIN_EXES CNI_KUBELET_TRIGGER
+CNI_PLUGIN_CONF=${CNI_PLUGIN_CONF:-""}
+CNI_PLUGIN_EXES=${CNI_PLUGIN_EXES:-""}
+CNI_KUBELET_TRIGGER=${CNI_KUBELET_TRIGGER:-networking}
+
+
+export FLANNEL_NET=${FLANNEL_NET:-172.16.0.0/16}
+
+
+
+export FLANNEL_OTHER_NET_CONFIG
+FLANNEL_OTHER_NET_CONFIG=''
+
+
+export ADMISSION_CONTROL=NamespaceLifecycle,LimitRanger,ServiceAccount,SecurityContextDeny,ResourceQuota
+
+# Path to the config file or directory of files of kubelet
+export KUBELET_CONFIG=${KUBELET_CONFIG:-""}
+
+# A port range to reserve for services with NodePort visibility
+SERVICE_NODE_PORT_RANGE=${SERVICE_NODE_PORT_RANGE:-"30000-32767"}
+
+# Optional: Enable node logging.
+ENABLE_NODE_LOGGING=false
+LOGGING_DESTINATION=${LOGGING_DESTINATION:-elasticsearch}
+
+# Optional: When set to true, Elasticsearch and Kibana will be setup as part of the cluster bring up.
+ENABLE_CLUSTER_LOGGING=false
+ELASTICSEARCH_LOGGING_REPLICAS=${ELASTICSEARCH_LOGGING_REPLICAS:-1}
+
+# Optional: When set to true, heapster, Influxdb and Grafana will be setup as part of the cluster bring up.
+ENABLE_CLUSTER_MONITORING="${KUBE_ENABLE_CLUSTER_MONITORING:-true}"
+
+# Extra options to set on the Docker command line.  This is useful for setting
+# --insecure-registry for local registries.
+DOCKER_OPTS=${DOCKER_OPTS:-""}
+
+# Extra options to set on the kube-proxy command line.  This is useful
+# for selecting the iptables proxy-mode, for example.
+KUBE_PROXY_EXTRA_OPTS=${KUBE_PROXY_EXTRA_OPTS:-""}
+
+# Optional: Install cluster DNS.
+ENABLE_CLUSTER_DNS="${KUBE_ENABLE_CLUSTER_DNS:-true}"
+# DNS_SERVER_IP must be a IP in SERVICE_CLUSTER_IP_RANGE
+DNS_SERVER_IP=${DNS_SERVER_IP:-"192.168.3.10"}
+DNS_DOMAIN=${DNS_DOMAIN:-"cluster.local"}
+DNS_REPLICAS=${DNS_REPLICAS:-1}
+
+# Optional: Install Kubernetes UI
+ENABLE_CLUSTER_UI="${KUBE_ENABLE_CLUSTER_UI:-true}"
+
+# Optional: Enable setting flags for kube-apiserver to turn on behavior in active-dev
+#RUNTIME_CONFIG=""
+
+# Optional: Add http or https proxy when download easy-rsa.
+# Add environment variable separated with blank space like "http_proxy=http://10.x.x.x:8080 https_proxy=https://10.x.x.x:8443"
+PROXY_SETTING=${PROXY_SETTING:-""}
+
+DEBUG=${DEBUG:-"false"}
+
