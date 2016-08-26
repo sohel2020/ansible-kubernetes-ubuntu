@@ -14,7 +14,7 @@ ansible_become_method=sudo
 
 
 [kubernete-minions]
-172.31.2.143
+54.152.145.109 
 
 [kubernete-minions:vars]
 ansible_user=ubuntu
