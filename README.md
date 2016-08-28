@@ -29,3 +29,7 @@ $ ansible-playbook -i hosts playbook.yml
 ```
 
 This command will download kubernetes repository and build all kubernetes binarys for ubuntu. Then scp to the server node and run all kubernetes master and node components and also install kube DNS and UI addon. 
+
+If your server is configured correctly then open your browser and hit:
+
+http://54.152.145.109:8080/ui
