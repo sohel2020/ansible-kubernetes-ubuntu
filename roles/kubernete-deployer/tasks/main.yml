@@ -51,10 +51,9 @@
  
 - name: deploy kubernetes
   shell: cd /root/kubernetes.git/cluster; KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
-  when: status.stat.exists == False
   ignore_errors: yes
 
 - name: deploy addons
   shell: cd /root/kubernetes.git/cluster/ubuntu; KUBERNETES_PROVIDER=ubuntu ./deployAddons.sh
-  when: status.stat.exists == False
+
 

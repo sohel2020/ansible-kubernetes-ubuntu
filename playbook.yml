@@ -3,6 +3,10 @@
   hosts: kubernete-minions
   remote_user: ubuntu
   sudo: yes
+  tasks:
+    - name: check kubernetes server status
+      stat: path=/opt/bin/flanneld
+      register: status 
   roles:
   - host-config
   - kubernete-minion
@@ -12,5 +16,4 @@
   remote_user: ubuntu
   sudo: yes
   roles:
-  - host-config
-  - kubernete-deployer
+  - { role: kubernete-deployer, when: "'{{ status.stat.exists }}' == 'False'" }
