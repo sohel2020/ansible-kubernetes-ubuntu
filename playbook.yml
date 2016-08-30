@@ -4,7 +4,7 @@
   remote_user: ubuntu
   sudo: yes
   roles:
-  - base
+  - host-config
   - kubernete-minion
 
 - name: Install and Configure Kubernete Deployer
@@ -12,5 +12,5 @@
   remote_user: ubuntu
   sudo: yes
   roles:
-  - base
+  - host-config
   - kubernete-deployer

@@ -47,9 +47,14 @@
 
 - name: Configure and deploy kubernetes
   template: src=config-default.sh.j2 dest=/root/kubernetes.git/cluster/ubuntu/config-default.sh
-  notify:
-  - deploy kubernetes
-  - deploy addons
+  when: status.stat.exists == False
+ 
+- name: deploy kubernetes
+  shell: cd /root/kubernetes.git/cluster; KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
+  when: status.stat.exists == False
+  ignore_errors: yes
 
-- name: flush handlers
-  meta: flush_handlers
+- name: deploy addons
+  shell: cd /root/kubernetes.git/cluster/ubuntu; KUBERNETES_PROVIDER=ubuntu ./deployAddons.sh
+  when: status.stat.exists == False
+
