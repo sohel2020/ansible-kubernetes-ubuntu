@@ -33,3 +33,18 @@ This command will download kubernetes repository and build all kubernetes binary
 If your server is configured correctly then open your browser and hit:
 
 http://54.152.145.109:8080/ui
+
+
+
+## How can I deploy multi node cluster? 
+
+Assume we're going to launch 1 master  and 2 nodes kubernetes cluster. In that case we need to change our `config-default.sh.j2` file.
+
+<img style="float: right;" src="https://s15.postimg.org/leb8lfmnf/Selection_004.png"  />
+
+You'll find `config-default.sh.j2` file under `roles/kubernete-deployer/templates/` and make change according to above images, where **a** indicate master and **i** indicate node/minion. As we're going to use 2 node so we need to change **NUM_NODES**. 
+
+Now it's time to change inventory/hosts file. Insert your IP addresses. First IP will be master  and other 2 will be node. Please follow as you're seeing below images
+
+<img style="float: right;" src="https://s11.postimg.org/436bdj3j7/Selection_007.png"  />
+
